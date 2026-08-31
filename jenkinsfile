@@ -1,10 +1,10 @@
 pipeline {
-    agent any
+    agent local-agent
 
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/<tumhara-username>/demo.git'
+                git branch: 'main', url: 'https://github.com/prakashsah2007/demo.git'
             }
         }
 
