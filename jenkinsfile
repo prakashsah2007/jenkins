@@ -1,14 +1,16 @@
 pipeline {
     agent any
+
+    tools {
+        maven 'Maven-3.9'
+    }
+
     stages {
         stage('Checkout') {
             steps {
                 git branch: 'main', url: 'https://github.com/prakashsah2007/jenkins.git'
-            } 
+            }
         }
-         tools {
-        maven 'Maven-3.9'   // Step 2 mein jo naam diya tha, exactly wahi
-    } 
 stage('Build') {
             steps {
                 sh 'mvn clean install -DskipTests'
