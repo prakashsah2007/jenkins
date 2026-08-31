@@ -1,43 +1,37 @@
 pipeline {
     agent any
-
-    stages ('Checkout') {
+    stages {
+        stage('Checkout') {
             steps {
                 git branch: 'main', url: 'https://github.com/prakashsah2007/demo.git'
             }
         }
-
         stage('Build') {
             steps {
                 sh 'mvn clean install -DskipTests'
             }
         }
-
         stage('Test') {
             steps {
                 sh 'mvn test'
             }
         }
-
         stage('Security Scan') {
             steps {
                 sh 'mvn org.owasp:dependency-check-maven:check'
             }
         }
-
         stage('Docker Build') {
             steps {
                 sh 'docker build -t demo-app:latest .'
             }
         }
-
         stage('Deploy') {
             steps {
                 sh 'docker run -d -p 8081:8080 demo-app:latest'
             }
         }
     }
-
     post {
         success { echo 'Pipeline pass ho gayi — build deployed.' }
         failure { echo 'Pipeline fail — check logs.' }
