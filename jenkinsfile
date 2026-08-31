@@ -3,7 +3,7 @@ pipeline {
 
     stages ('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/prakashsah2007/DemoApplication.git'
+                git branch: 'main', url: 'https://github.com/prakashsah2007/demo.git'
             }
         }
 
