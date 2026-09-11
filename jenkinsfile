@@ -11,7 +11,7 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/prakashsah2007/jenkins.git'
             }
         }
-stage('Build') {
+        stage('Build') {
             steps {
                 sh 'mvn clean install -DskipTests'
             }
@@ -22,9 +22,10 @@ stage('Build') {
             }
         }
         stage('Security Scan') {
-          steps {
-        withCredentials([string(credentialsId: 'nvd-api-key', variable: 'NVD_KEY')]) {
-            sh 'mvn org.owasp:dependency-check-maven:check -DnvdApiKey=$NVD_KEY'
+            steps {
+                withCredentials([string(credentialsId: 'nvd-api-key', variable: 'NVD_KEY')]) {
+                    sh 'mvn org.owasp:dependency-check-maven:check -DnvdApiKey=$NVD_KEY'
+                }
             }
         }
         stage('Docker Build') {
