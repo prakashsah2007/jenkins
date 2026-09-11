@@ -22,8 +22,9 @@ stage('Build') {
             }
         }
         stage('Security Scan') {
-            steps {
-                sh 'mvn org.owasp:dependency-check-maven:check || true'
+          steps {
+        withCredentials([string(credentialsId: 'nvd-api-key', variable: 'NVD_KEY')]) {
+            sh 'mvn org.owasp:dependency-check-maven:check -DnvdApiKey=$NVD_KEY'
             }
         }
         stage('Docker Build') {
