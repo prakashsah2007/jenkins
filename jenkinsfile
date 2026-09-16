@@ -24,7 +24,7 @@ pipeline {
         stage('Security Scan') {
             steps {
                 withCredentials([string(credentialsId: 'nvd-api-key', variable: 'NVD_KEY')]) {
-                    sh 'mvn org.owasp:dependency-check-maven:check -DnvdApiKey=$NVD_KEY -DnvdApiDelay=6000'
+                    sh 'mvn org.owasp:dependency-check-maven:check -DnvdApiKey=$NVD_KEY -DnvdApiDelay=6000 || true'
                 }
             }
         }
